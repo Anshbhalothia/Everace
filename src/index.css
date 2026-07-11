@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #f6f0e8;
+  color: #1b1a18;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f6f0e8 0%, #f5ede1 100%);
+  color: #1b1a18;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(210, 138, 66, 0.18);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+section {
+  position: relative;
+}
+
+.text-muted {
+  color: #637063;
+}
+
+.bg-panel {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+}
