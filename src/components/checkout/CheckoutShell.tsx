@@ -1,112 +1,251 @@
-'use client';
-
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useCartStore } from '@store/cart';
-import { Button } from '@components/ui/button';
 import { formatCurrency } from '@lib/utils';
+import { Button } from '@components/ui/button';
+import { Link } from 'react-router-dom';
 
 export const CheckoutShell = () => {
-  const items = useCartStore((state) => state.items);
-  const total = useCartStore((state) => state.total());
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
+  const { items, total, clear } = useCartStore();
+  const cartTotal = total();
 
-  if (items.length === 0) {
+  // Form Field States
+  const [name, setName] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [address, setAddress] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'cod'>('razorpay');
+
+  // Checkout Flow Lifecycle States
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isOrderSuccessful, setIsOrderSuccessful] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [mockGeneratedOrderId, setMockGeneratedOrderId] = useState('');
+
+  // Form Validation and Payment Simulation
+  const handleProcessPayment = (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage('');
+
+    if (items.length === 0) {
+      setErrorMessage('Your cart is empty. Add items to cart before trying to checkout.');
+      return;
+    }
+
+    if (!name.trim() || !mobile.trim() || !address.trim()) {
+      setErrorMessage('Please completely fill out your delivery name, mobile number, and address fields.');
+      return;
+    }
+
+    setIsProcessing(true);
+
+    // Simulate Payment Gateway Network Latency 
+    setTimeout(() => {
+      setIsProcessing(false);
+      setIsOrderSuccessful(true);
+      setMockGeneratedOrderId('EVR-' + Math.floor(100000 + Math.random() * 900000));
+      clear(); // Wipe the Zustand + LocalStorage state clean on purchase success
+    }, 2200);
+  };
+
+  // SUCCESS STATE SCREEN TEMPLATE (Renders beautifully upon checkout completion)
+  if (isOrderSuccessful) {
     return (
-      <div className="rounded-[40px] border border-[#e4d2bd] bg-[#fffdfa] p-12 shadow-panel text-center">
-        <p className="text-sm uppercase tracking-[0.35em] text-[#7a6a5f]">Checkout unavailable</p>
-        <h2 className="mt-4 text-4xl font-serif text-charcoal">Your cart is empty.</h2>
-        <p className="mx-auto mt-6 max-w-lg text-sm leading-7 text-[#5c5243]">
-          Add a product to your cart before proceeding with checkout.
-        </p>
-        <div className="mt-10">
-          <Link to="/products" className="inline-flex rounded-full bg-charcoal px-8 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-ivory transition hover:bg-[#11100f]">
-            Continue shopping
-          </Link>
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:py-24 text-center animate-fadeIn">
+        <div className="rounded-[40px] border border-[#d6c4b0] bg-[#fffdfa] p-8 md:p-12 shadow-panel space-y-8">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#eadecc] border border-[#b99c71]">
+            <svg className="h-8 w-8 text-[#5d5143]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#7a6a5f] font-semibold">Ritual Confirmed</p>
+            <h1 className="text-4xl font-serif text-charcoal sm:text-5xl">Thank you for your order.</h1>
+            <p className="text-sm text-[#7a6a5f]">Order Tracking ID: <span className="font-mono font-bold text-charcoal">{mockGeneratedOrderId}</span></p>
+          </div>
+
+          <div className="border-t border-b border-[#eadecc] py-6 my-6 text-left space-y-4">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#7a6a5f] font-semibold">Estimated Shipment Schedule</p>
+            <div className="relative pl-6 space-y-6 before:absolute before:bottom-2 before:left-[7px] before:top-2 before:w-0.5 before:bg-[#eadecc]">
+              <div className="relative before:absolute before:left-[-23px] before:top-1.5 before:h-3 before:w-3 before:rounded-full before:bg-charcoal">
+                <p className="text-sm font-medium text-charcoal">Order Packed & Prepared</p>
+                <p className="text-xs text-[#7a6a5f]">Processing completion and quality appraisal wraps up today.</p>
+              </div>
+              <div className="relative before:absolute before:left-[-23px] before:top-1.5 before:h-3 before:w-3 before:rounded-full before:bg-[#cebdad]">
+                <p className="text-sm font-medium text-[#7a6a5f]">Dispatched via Luxury Courier</p>
+                <p className="text-xs text-[#9c8b7c]">Estimated collection transit initiates within 24 hours.</p>
+              </div>
+              <div className="relative before:absolute before:left-[-23px] before:top-1.5 before:h-3 before:w-3 before:rounded-full before:bg-[#cebdad]">
+                <p className="text-sm font-medium text-[#7a6a5f]">Delivery Expected</p>
+                <p className="text-xs text-[#9c8b7c]">Estimated safe arrival at your address within 3–5 structural business days.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-4">
+            <Link to="/products">
+              <Button size="lg" className="w-full sm:w-auto rounded-full">Continue Collecting</Button>
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
+  // STANDARD CHECKOUT BILLING & SUMMARY SCREEN
   return (
-    <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-      <motion.section initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="rounded-[40px] border border-[#e4d2bd] bg-[#fffdfa] p-8 shadow-panel">
-        <p className="text-xs uppercase tracking-[0.35em] text-[#7a6a5f]">Checkout</p>
-        <h2 className="mt-4 text-4xl font-serif text-charcoal">Complete your ritual.</h2>
-        <div className="mt-10 grid gap-6">
-          <div className="rounded-3xl border border-[#d7c1ab] bg-ivory/90 p-6">
-            <p className="text-sm text-[#5f533f]">Guest checkout with minimal fields and modern payment readiness.</p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <label className="grid gap-2 text-sm text-[#5c5243]">
-              Full name
-              <input value={name} onChange={(e) => setName(e.target.value)} className="rounded-3xl border border-[#d7c1ab] bg-white px-4 py-3 text-sm text-[#1c1a18] outline-none focus:border-[#b99c71]" placeholder="Aanya Sharma" />
-            </label>
-            <label className="grid gap-2 text-sm text-[#5c5243]">
-              Mobile
-              <input value={phone} onChange={(e) => setPhone(e.target.value)} className="rounded-3xl border border-[#d7c1ab] bg-white px-4 py-3 text-sm text-[#1c1a18] outline-none focus:border-[#b99c71]" placeholder="+91 98XXXXXXXX" />
-            </label>
-          </div>
-          <label className="grid gap-2 text-sm text-[#5c5243]">
-            Delivery address
-            <textarea value={address} onChange={(e) => setAddress(e.target.value)} rows={4} className="rounded-3xl border border-[#d7c1ab] bg-white px-4 py-3 text-sm text-[#1c1a18] outline-none focus:border-[#b99c71]" placeholder="Plot 12, New Delhi, 110001" />
-          </label>
-          <div className="space-y-4 rounded-[32px] border border-[#e4d2bd] bg-white/95 p-6">
-            <p className="uppercase tracking-[0.35em] text-[#7b6a59]">Payment</p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Button size="lg">Pay with Razorpay</Button>
-              <Button variant="outline" size="lg">UPI / Fast pay</Button>
-            </div>
-            <p className="text-sm text-[#5c5243]">Razorpay integration ready. Apple Pay and UPI-style express flow designed for frictionless luxury checkout.</p>
-          </div>
+   <div className="mx-auto max-w-7xl px-4 pt-0 pb-16 sm:px-6 lg:pb-24">
+    
+      {items.length === 0 ? (
+        <div className="text-center py-20 rounded-[40px] border border-[#e2d1c2] bg-white/60">
+          <p className="text-[#5a4f44] text-lg font-medium mb-6">Your shopping cart is currently empty.</p>
+          <Link to="/products">
+            <Button className="rounded-full">Browse Collection</Button>
+          </Link>
         </div>
-      </motion.section>
-      <motion.aside initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="rounded-[40px] border border-[#e4d2bd] bg-[#f7f0e8] p-8 shadow-soft">
-        <p className="text-xs uppercase tracking-[0.35em] text-[#7a6a5f]">Order summary</p>
-        <div className="mt-6 space-y-4">
-          {items.map((item) => (
-            <div key={item.variantId} className="flex items-center justify-between gap-4 rounded-3xl border border-[#e2d3bd] bg-white/90 p-4 text-sm text-[#5e5244]">
-              <div className="flex items-center gap-4">
-                <div className="h-16 w-16 overflow-hidden rounded-[24px] bg-[#f7f1e8]">
-                  {item.product.images?.[0] ? (
-                    <img
-                      src={item.product.images[0]}
-                      alt={item.product.title}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-xs text-[#9b8d79]">
-                      No image
-                    </div>
-                  )}
+      ) : (
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          {/* Customer Shipping Input Block */}
+          <form onSubmit={handleProcessPayment} className="rounded-[40px] border border-[#e2d1c2] bg-white/90 p-8 shadow-panel space-y-6">
+            <h2 className="text-2xl font-serif text-charcoal border-b border-[#ebdccf] pb-4">Shipping Information</h2>
+
+            {errorMessage && (
+              <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-600 font-medium">
+                {errorMessage}
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <label className="text-xs uppercase tracking-wider text-[#7a6a5f] font-semibold">Full Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter recipient's name"
+                disabled={isProcessing}
+                className="w-full rounded-2xl border border-[#cebdad] bg-[#fffdfa] px-4 py-3 text-sm text-charcoal focus:border-[#b99c71] focus:outline-none disabled:opacity-50"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs uppercase tracking-wider text-[#7a6a5f] font-semibold">Mobile Number</label>
+              <input
+                type="tel"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                placeholder="Enter 10-digit phone number"
+                disabled={isProcessing}
+                className="w-full rounded-2xl border border-[#cebdad] bg-[#fffdfa] px-4 py-3 text-sm text-charcoal focus:border-[#b99c71] focus:outline-none disabled:opacity-50"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs uppercase tracking-wider text-[#7a6a5f] font-semibold">Delivery Address</label>
+              <textarea
+                rows={4}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Apartment, Street Name, Landmark, City, Pincode"
+                disabled={isProcessing}
+                className="w-full rounded-2xl border border-[#cebdad] bg-[#fffdfa] px-4 py-3 text-sm text-charcoal focus:border-[#b99c71] focus:outline-none disabled:opacity-50 resize-none"
+              />
+            </div>
+
+            {/* Premium Method Toggles */}
+            <div className="space-y-3 pt-4">
+              <label className="text-xs uppercase tracking-wider text-[#7a6a5f] font-semibold">Payment Method</label>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div
+                  onClick={() => !isProcessing && setPaymentMethod('razorpay')}
+                  className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition ${
+                    paymentMethod === 'razorpay'
+                      ? 'border-charcoal bg-[#fbf6ef] ring-1 ring-charcoal'
+                      : 'border-[#cebdad] bg-white hover:border-[#b99c71]'
+                  } ${isProcessing ? 'opacity-50 pointer-events-none' : ''}`}
+                >
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-charcoal">Pay with Razorpay</p>
+                    <p className="text-xs text-[#7a6a5f]">Cards, Netbanking, UPI</p>
+                  </div>
+                  <div className={`h-4 w-4 rounded-full border flex items-center justify-center ${paymentMethod === 'razorpay' ? 'border-charcoal' : 'border-[#cebdad]'}`}>
+                    {paymentMethod === 'razorpay' && <div className="h-2 w-2 rounded-full bg-charcoal" />}
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-charcoal">{item.product.title}</p>
-                  <p>{item.quantity} × {formatCurrency(item.product.price)}</p>
+
+                <div
+                  onClick={() => !isProcessing && setPaymentMethod('cod')}
+                  className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition ${
+                    paymentMethod === 'cod'
+                      ? 'border-charcoal bg-[#fbf6ef] ring-1 ring-charcoal'
+                      : 'border-[#cebdad] bg-white hover:border-[#b99c71]'
+                  } ${isProcessing ? 'opacity-50 pointer-events-none' : ''}`}
+                >
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-charcoal">Cash on Delivery</p>
+                    <p className="text-xs text-[#7a6a5f]">Pay currency during courier delivery</p>
+                  </div>
+                  <div className={`h-4 w-4 rounded-full border flex items-center justify-center ${paymentMethod === 'cod' ? 'border-charcoal' : 'border-[#cebdad]'}`}>
+                    {paymentMethod === 'cod' && <div className="h-2 w-2 rounded-full bg-charcoal" />}
+                  </div>
                 </div>
               </div>
-              <p className="font-semibold text-charcoal">{formatCurrency(item.product.price * item.quantity)}</p>
             </div>
-          ))}
+
+            <div className="pt-4">
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full rounded-full"
+                disabled={isProcessing}
+              >
+                {isProcessing 
+                  ? 'Connecting Secure Gateways...' 
+                  : paymentMethod === 'razorpay' 
+                    ? `Securely Pay ${formatCurrency(cartTotal)}` 
+                    : `Confirm Cash Order of ${formatCurrency(cartTotal)}`
+                }
+              </Button>
+            </div>
+          </form>
+
+          {/* Cart Bill Summary Drawer */}
+          <aside className="space-y-6 rounded-[40px] border border-[#d6c4b0] bg-[#fffdfa] p-8 shadow-panel lg:sticky lg:top-20">
+            <h2 className="text-2xl font-serif text-charcoal border-b border-[#ebdccf] pb-4">Bag Summary</h2>
+            <div className="max-h-60 overflow-y-auto divide-y divide-[#ebdccf] pr-2">
+              {items.map((item) => {
+                const matchedVariant = item.product.variants?.find(v => v.id === item.variantId);
+                const currentPrice = matchedVariant && 'price' in matchedVariant ? (matchedVariant as any).price : item.product.price;
+                const activeLabel = (matchedVariant as any)?.size || (matchedVariant as any)?.weight || (matchedVariant as any)?.type || 'Standard';
+
+                return (
+                  <div key={item.variantId} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
+                    <img src={item.product.images[0]} alt={item.product.title} className="h-14 w-14 rounded-xl object-cover border border-[#e2d1c2]" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-charcoal truncate">{item.product.title}</p>
+                      <p className="text-xs text-[#7a6a5f]">Option: <span className="uppercase font-semibold">{activeLabel}</span> • Qty: {item.quantity}</p>
+                    </div>
+                    <p className="text-sm font-medium text-charcoal">{formatCurrency(currentPrice * item.quantity)}</p>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="border-t border-[#ebdccf] pt-4 space-y-3 text-sm">
+              <div className="flex justify-between text-[#5a4f44]">
+                <span>Items Subtotal</span>
+                <span>{formatCurrency(cartTotal)}</span>
+              </div>
+              <div className="flex justify-between text-[#5a4f44]">
+                <span>Premium Delivery Service</span>
+                <span className="text-green-700 font-medium">Complimentary</span>
+              </div>
+              <div className="flex justify-between border-t border-[#ebdccf] pt-3 text-lg font-serif font-semibold text-charcoal">
+                <span>Total Bill Amount</span>
+                <span>{formatCurrency(cartTotal)}</span>
+              </div>
+            </div>
+          </aside>
         </div>
-        <div className="mt-6 rounded-[32px] bg-[#fbf4e8] p-6 text-sm text-[#5c4f44]">
-          <div className="flex items-center justify-between">
-            <span>Subtotal</span>
-            <span>{formatCurrency(total)}</span>
-          </div>
-          <div className="mt-3 flex items-center justify-between">
-            <span>Shipping</span>
-            <span>₹75</span>
-          </div>
-          <div className="mt-3 border-t border-[#e0d0bd] pt-4 flex items-center justify-between text-base font-semibold text-charcoal">
-            <span>Total</span>
-            <span>{formatCurrency(total + 75)}</span>
-          </div>
-        </div>
-      </motion.aside>
+      )}
     </div>
   );
 };

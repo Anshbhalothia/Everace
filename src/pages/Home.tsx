@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { heroImages, categories, testimonials, products } from '@lib/data';
 import { SectionTitle } from '@components/ui/section-title';
@@ -6,7 +7,64 @@ import { Button } from '@components/ui/button';
 import { CheckoutAction } from '@components/ui/CheckoutAction';
 import { ProductCard } from '@components/product/ProductCard';
 
+function useRotatingImages(
+  images: string[],
+  visibleCount: number,
+  interval: number
+): string[] {
+  const [startIndex, setStartIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= visibleCount) return;
+    const id = setInterval(() => {
+      setStartIndex((prev) => (prev + 1) % images.length);
+    }, interval);
+    return () => clearInterval(id);
+  }, [images.length, visibleCount, interval]);
+
+  return Array.from(
+    { length: visibleCount },
+    (_, i) => images[(startIndex + i) % images.length]
+  );
+}
+
+// Locks each tile's pixel height to whatever it naturally rendered at
+// on first mount, before any rotation. Prevents any cropping drift.
+function useLockedHeight<T extends HTMLElement>() {
+  const ref = useRef<T | null>(null);
+  const [height, setHeight] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (ref.current && height === undefined) {
+      setHeight(ref.current.getBoundingClientRect().height);
+    }
+  }, [height]);
+
+  return { ref, height };
+}
+function HeroTile({ src, slot }: { src: string; slot: number }) {
+  return (
+    <div className="relative overflow-hidden rounded-[32px] border border-[#e4d2bd] bg-[#faf5ee] p-2 shadow-panel">
+      <div className="grid overflow-hidden rounded-[28px]">
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={src}
+            src={src}
+            alt={`Everace hero ${slot + 1}`}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
+            className="col-start-1 row-start-1 h-full w-full object-cover"
+          />
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
 export default function HomePage() {
+  const visibleHeroImages = useRotatingImages(heroImages, 4, 3500);
+
   return (
     <div className="overflow-hidden">
       <section className="relative mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:pt-12">
@@ -26,21 +84,23 @@ export default function HomePage() {
               </CheckoutAction>
             </div>
           </div>
+
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="grid gap-6 sm:grid-cols-2"
           >
-            {heroImages.map((src, index) => (
-              <div key={src} className="relative overflow-hidden rounded-[32px] border border-[#e4d2bd] bg-[#faf5ee] p-2 shadow-panel">
-                <img src={src} alt={`Everace hero ${index + 1}`} className="h-full w-full rounded-[28px] object-cover" />
-              </div>
+            {visibleHeroImages.map((src, slot) => (
+              <HeroTile key={slot} src={src} slot={slot} />
             ))}
           </motion.div>
         </div>
       </section>
 
+      {/* rest of the file unchanged */}
+
+      {/* BEST SELLERS SECTION */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
         <SectionTitle
           eyebrow="Best Sellers"
@@ -54,6 +114,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* CATEGORIES SECTION */}
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:pb-24">
         <div className="rounded-[40px] border border-[#d4c3b2] bg-white/85 p-8 shadow-panel sm:p-12">
           <SectionTitle
@@ -71,12 +132,12 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* BRAND STORY SECTION */}
       <section
         id="story"
         className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:pb-24"
       >
         <div className="grid gap-10 lg:grid-cols-[0.95fr_0.95fr] lg:items-stretch">
-
           {/* Left Card */}
           <div className="h-full space-y-6 rounded-[40px] border border-[#e4d2bd] bg-[#fffdf9] p-10 shadow-panel sm:p-14">
             <SectionTitle
@@ -120,25 +181,12 @@ export default function HomePage() {
               <h3 className="mt-4 text-2xl font-serif leading-tight text-charcoal">The art of pure living.</h3>
               <p className="mt-4 text-sm leading-7 text-[#5a4f44]">A slow, intentional brand voice built for cleansing the digital noise.</p>
             </div>
-
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:pb-28">
-        <SectionTitle eyebrow="Testimonials" title="Refined voices from the wellness community." />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <article key={testimonial.author} className="rounded-[32px] border border-[#e2d4c0] bg-white/90 p-8 shadow-soft">
-              <p className="text-base leading-8 text-[#5c5347]">“{testimonial.quote}”</p>
-              <div className="mt-6 text-sm text-[#5c5044]">
-                <p className="font-semibold text-charcoal">{testimonial.author}</p>
-                <p>{testimonial.role}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      {/* DYNAMIC LUXURY TESTIMONIALS SLIDER */}
+     
     </div>
   );
 }
