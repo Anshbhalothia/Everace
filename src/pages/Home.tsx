@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { heroImages, categories, testimonials, products } from '@lib/data';
@@ -6,6 +6,14 @@ import { SectionTitle } from '@components/ui/section-title';
 import { Button } from '@components/ui/button';
 import { CheckoutAction } from '@components/ui/CheckoutAction';
 import { ProductCard } from '@components/product/ProductCard';
+import type { Product } from '@product/product';
+
+// Helper function to safely extract random distinct items
+const getRandomProducts = (allProducts: Product[], count: number): Product[] => {
+  return [...allProducts]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, count);
+};
 
 function useRotatingImages(
   images: string[],
@@ -28,20 +36,6 @@ function useRotatingImages(
   );
 }
 
-// Locks each tile's pixel height to whatever it naturally rendered at
-// on first mount, before any rotation. Prevents any cropping drift.
-function useLockedHeight<T extends HTMLElement>() {
-  const ref = useRef<T | null>(null);
-  const [height, setHeight] = useState<number | undefined>(undefined);
-
-  useEffect(() => {
-    if (ref.current && height === undefined) {
-      setHeight(ref.current.getBoundingClientRect().height);
-    }
-  }, [height]);
-
-  return { ref, height };
-}
 function HeroTile({ src, slot }: { src: string; slot: number }) {
   return (
     <div className="relative overflow-hidden rounded-[32px] border border-[#e4d2bd] bg-[#faf5ee] p-2 shadow-panel">
@@ -62,11 +56,18 @@ function HeroTile({ src, slot }: { src: string; slot: number }) {
     </div>
   );
 }
+
 export default function HomePage() {
   const visibleHeroImages = useRotatingImages(heroImages, 4, 3500);
 
+  // Safely memorize 3 random items right here so state re-renders don't cause sudden shifts
+  const randomizedBestsellers = useMemo(() => {
+    return getRandomProducts(products, 3);
+  }, []);
+
   return (
     <div className="overflow-hidden">
+      {/* HERO SECTION */}
       <section className="relative mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:pt-12">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div className="max-w-2xl space-y-8 py-10 lg:py-16">
@@ -98,8 +99,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* rest of the file unchanged */}
-
       {/* BEST SELLERS SECTION */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
         <SectionTitle
@@ -108,7 +107,8 @@ export default function HomePage() {
           description="Every product is chosen to feel premium, minimal, and naturally elegant."
         />
         <div className="mt-12 grid gap-8 lg:grid-cols-3">
-          {products.slice(0, 3).map((product) => (
+          {/* Now uses the safely scrambled local hook state array */}
+          {randomizedBestsellers.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
@@ -185,8 +185,43 @@ export default function HomePage() {
         </div>
       </section>
 
+
+
       {/* DYNAMIC LUXURY TESTIMONIALS SLIDER */}
-     
+      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:pb-28">
+        <SectionTitle eyebrow="Testimonials" title="Refined voices from the wellness community." />
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {testimonials.map((testimonial) => (
+            <article key={testimonial.author} className="rounded-[32px] border border-[#e2d4c0] bg-white/90 p-8 shadow-soft">
+              <p className="text-base leading-8 text-[#5c5347]">“{testimonial.quote}”</p>
+              <div className="mt-6 text-sm text-[#5c5044]">
+                <p className="font-semibold text-charcoal">{testimonial.author}</p>
+                <p>{testimonial.role}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      
     </div>
   );
 }
+
+      {/* DYNAMIC LUXURY TESTIMONIALS SLIDER */}
+      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:pb-28">
+        <SectionTitle eyebrow="Testimonials" title="Refined voices from the wellness community." />
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {testimonials.map((testimonial) => (
+            <article key={testimonial.author} className="rounded-[32px] border border-[#e2d4c0] bg-white/90 p-8 shadow-soft">
+              <p className="text-base leading-8 text-[#5c5347]">“{testimonial.quote}”</p>
+              <div className="mt-6 text-sm text-[#5c5044]">
+                <p className="font-semibold text-charcoal">{testimonial.author}</p>
+                <p>{testimonial.role}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      
+     
+
