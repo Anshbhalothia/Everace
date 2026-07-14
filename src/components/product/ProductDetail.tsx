@@ -51,7 +51,7 @@ export const ProductDetail = ({ product }: { product: Product }) => {
             <img src={selectedImage} alt={product.title} className="h-full w-full rounded-[32px] object-cover" />
           </div>
           <div className="grid gap-4">
-            {product.images.map((image) => (
+            {product.images.slice(1).map((image) => (
               <button key={image} onClick={() => setSelectedImage(image)} className="overflow-hidden rounded-[28px] border border-[#ddd0be] bg-[#f7f1e8] transition hover:border-[#b99c71]">
                 <img src={image} alt={product.title} className="h-36 w-full object-cover" />
               </button>

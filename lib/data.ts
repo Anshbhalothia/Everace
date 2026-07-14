@@ -52,7 +52,7 @@ export const products: Product[] = [
     price: 2499,
     rating: 4.9,
     badge: 'Pure',
-    images: ['/images/everace-16.jpeg', '/images/everace-5.jpeg', '/images/everace-6.jpeg'],
+    images: ['/images/everace-16.jpeg','https://images.unsplash.com/photo-1560076649-950a9ef4a860?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c2FmZnJvbnxlbnwwfHwwfHx8MA%3D%3D', 'https://images.unsplash.com/photo-1613549026674-2b6c58226395?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNhZmZyb258ZW58MHx8MHx8fDA%3D', 'https://images.unsplash.com/photo-1643471672168-f4a4b6cfa440?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2FmZnJvbnxlbnwwfHwwfHx8MA%3D%3D'],
     variants: [
       { id: 'saffron-1g', label: '1g', price: 2499, inventory: 22 },
       { id: 'saffron-2g', label: '2g', price: 4499, inventory: 14 },
@@ -94,7 +94,7 @@ export const products: Product[] = [
     price: 1650,
     rating: 4.8,
     badge: 'Wild Foraged',
-    images: ['/images/everace-14.jpeg', '/images/everace-15.jpeg'],
+    images: ['/images/everace-4.jpeg', 'https://images.unsplash.com/photo-1567870335471-1129836babcf?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmxhY2tiZXJyaWVzfGVufDB8fDB8fHww','https://plus.unsplash.com/premium_photo-1689247409449-83ee821442ca?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGJsYWNrYmVycmllc3xlbnwwfHwwfHx8MA%3D%3D','https://media.istockphoto.com/id/173228386/photo/blackberries-with-leaf-on-white.webp?a=1&b=1&s=612x612&w=0&k=20&c=5xVS43GUfjV0AdRaagleIsd0WmWafWzwWX_FGP8hQjk='],
     variants: [{ id: 'blackberry-200g', label: '200g', price: 1650, inventory: 19 }],
     story: 'Foraged from remote forest floors, these berries are handled via temperature-neutral dehydration vectors to maintain their complex enzymatic depth.',
     taste: 'Deeply tart, complex woodsy body with sweet structural undertones.',
@@ -132,7 +132,7 @@ export const products: Product[] = [
     details: ['250g pack', 'Whole plump state', 'Vitamin C dense'],
     price: 1450,
     rating: 4.7,
-    images: ['/images/everace-12.jpeg', '/images/everace-13.jpeg'],
+    images: ['/images/everace-3.jpeg', 'https://plus.unsplash.com/premium_photo-1674347953907-5518c9ff379d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TW91bnRhaW4lMjBDcmFuYmVycmllc3xlbnwwfHwwfHx8MA%3D%3D','https://images.unsplash.com/photo-1692815464877-3a55819caac9?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fE1vdW50YWluJTIwQ3JhbmJlcnJpZXN8ZW58MHx8MHx8fDA%3D','https://images.unsplash.com/photo-1669216460760-663444cc41a0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fE1vdW50YWluJTIwQ3JhbmJlcnJpZXN8ZW58MHx8MHx8fDA%3D'],
     variants: [{ id: 'cranberry-250g', label: '250g', price: 1450, inventory: 25 }],
     story: 'Grown on steep sub-zero elevations, these cranberries develop a defensive skin layout packed with highly concentrated organic acids.',
     taste: 'Brilliant vibrant snap, refreshing tartness, minimal sweetness.',
@@ -171,7 +171,7 @@ export const products: Product[] = [
     price: 3600,
     rating: 4.9,
     badge: 'Elite Lot',
-    images: ['/images/everace-4.jpeg', '/images/everace-3.jpeg'],
+    images: ['/images/everace-6.jpeg', 'https://plus.unsplash.com/premium_photo-1668442426483-0dad290cba45?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8TWFtcmElMjBBbG1vbmRzfGVufDB8fDB8fHww','https://images.unsplash.com/photo-1508779018996-601e37fa274e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8QWxtb25kc3xlbnwwfHwwfHx8MA%3D%3D','https://images.unsplash.com/photo-1596812179986-c78ad0debed8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fEFsbW9uZHN8ZW58MHx8MHx8fDA%3D'],
     variants: [
       { id: 'almond-500g', label: '500g', price: 3600, inventory: 40 },
       { id: 'almond-1kg', label: '1kg', price: 6800, inventory: 18 }
@@ -212,7 +212,7 @@ export const products: Product[] = [
     details: ['250g pack', 'Rich omega profile', 'Naturally preserved'],
     price: 1299,
     rating: 4.8,
-    images: ['/images/everace-8.jpeg', '/images/everace-7.jpeg', '/images/everace-9.jpeg'],
+    images: ['/images/everace-8.jpeg', 'https://images.unsplash.com/photo-1626012109496-21f579f648dd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8V2FsbnV0c3xlbnwwfHwwfHx8MA%3D%3D', 'https://plus.unsplash.com/premium_photo-1671405403469-b0ba7787b344?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8V2FsbnV0c3xlbnwwfHwwfHx8MA%3D%3D','https://images.unsplash.com/photo-1701592479189-3679e1f38c9d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fFdhbG51dHN8ZW58MHx8MHx8fDA%3D'],
     variants: [
       { id: 'walnuts-250g', label: '250g', price: 1299, inventory: 34 },
       { id: 'walnuts-500g', label: '500g', price: 2399, inventory: 20 }
@@ -243,6 +243,7 @@ export const products: Product[] = [
       purity: "Completely Unbleached • Raw Whole Halves"
     }
   },
+  
   {
     id: 'green-kishmis',
     slug: 'kashmiri-green-raisins-reserve',
@@ -253,7 +254,7 @@ export const products: Product[] = [
     details: ['400g glass jar', 'Naturally sweet', 'No sulfur treatment'],
     price: 950,
     rating: 4.8,
-    images: ['/images/everace-1.jpeg', '/images/everace-4.jpeg'],
+    images: ['/images/everace-10.jpeg', 'https://media.istockphoto.com/id/974877012/photo/a-sweet-dried-fruit-golden-raisins-or-vitis-vinifera-l-var-apyrena-kishmish-or-zante-currant.webp?a=1&b=1&s=612x612&w=0&k=20&c=_6FdAzMBn1KjjP7yk6c8eCH98cJRX17o73TxoWXFGdw=','https://plus.unsplash.com/premium_photo-1669205434519-a042ba09fbdd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8UmFpc2luc3xlbnwwfHwwfHx8MA%3D%3D','https://plus.unsplash.com/premium_photo-1720539180341-f00762823a88?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fFJhaXNpbnN8ZW58MHx8MHx8fDA%3D',],
     variants: [{ id: 'kishmis-400g', label: '400g', price: 950, inventory: 31 }],
     story: 'These long-form green grapes are dehydrated away from direct sunlight inside mud towers, preserving their translucent emerald green hue and deep internal fructose matrix.',
     taste: 'Delicately sweet, smooth skin snap, bright clean finish.',
@@ -292,7 +293,7 @@ export const products: Product[] = [
     price: 1100,
     rating: 4.9,
     badge: 'Exclusive',
-    images: ['/images/everace-2.jpeg', '/images/everace-5.jpeg'],
+    images: ['/images/everace-9.jpeg', 'https://media.istockphoto.com/id/1272006876/photo/pot-of-brazilian-raisin-candied-fruit-used-in-sweets-inside-a-handmade-clay-pot.webp?a=1&b=1&s=612x612&w=0&k=20&c=O0fjWmpNHEsMiUe9vLZYTq-Yh3AhbCymv_zcLlknS6o=','https://plus.unsplash.com/premium_photo-1726072357017-0af7b90a463d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmxhY2slMjBSYWlzaW5zfGVufDB8fDB8fHww','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRMSQOLgoue-aCtC1cpgAR2qkdtDXCnx5kmOKu3wExkQ&s=10'],
     variants: [{ id: 'black-kishmis-400g', label: '400g', price: 1100, inventory: 16 }],
     story: 'Sun-cured directly on open terraces, these dark grapes oxidize naturally, developing a profound caramel complexity and dense iron values.',
     taste: 'Intense rich dark profile, dark chocolate and fig notes.',
@@ -320,6 +321,7 @@ export const products: Product[] = [
       purity: "100% Untreated • Zero Mineral Oil Glazes"
     }
   },
+  //
   {
     id: 'munaka-reserve',
     slug: 'kashmiri-munaka-with-seeds',
@@ -369,7 +371,7 @@ export const products: Product[] = [
     price: 2800,
     rating: 5.0,
     badge: 'Ultra Rare',
-    images: ['/images/everace-12.jpeg', '/images/everace-15.jpeg'],
+    images: ['/images/everace-12.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvRGI0Dye3VjqYpie4oeFCNRwJMTkZz0vmLM2uQnO9ag&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmi0qos15AodPmYHSI8mYYFv_PWnfM3L4Z0hDexi2Gdw&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaewWxwY8vh_-Q3lWsAKAHF_V4sdnTKcvJ_4uMYFOSyQ&s=10'],
     variants: [{ id: 'white-honey-350g', label: '350g', price: 2800, inventory: 8 }],
     story: 'Collected at altitudes exceeding 11,000 feet, this premium white honey crystallizes naturally due to cold weather, preserving its sweet, delicate floral aroma.',
     taste: 'Soft, creamy cream-like consistency with clean, subtle hints of alpine clover.',
@@ -407,7 +409,7 @@ export const products: Product[] = [
     details: ['150g presentation tin', 'Zero added sweeteners', 'Infused with Grade-A Saffron'],
     price: 1350,
     rating: 4.9,
-    images: ['/images/everace-3.jpeg', '/images/everace-16.jpeg'],
+    images: ['/images/everace-17.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRStyaSYH1L2Zc7T0SnuPWr8dJpxaIRW3tRj1MuCtD86Q&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrL5N4nxYHJZdlFUK1y0spfZeCVa-hTxP3YWhfrrkFCg&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9HWr-tLkXYeitaQkAcwwPVzwQBXSCWxRR1In6kN_tEw&s=10'],
     variants: [{ id: 'kahwa-150g', label: '150g', price: 1350, inventory: 45 }],
     story: 'A highly refined version of the classic celebratory welcome drink. Formulated without sugars or fillers to highlight the clean notes of cardamom and real saffron.',
     taste: 'Boldly aromatic, clear green tea warmth, with an extended sweet saffron finish.',
@@ -435,6 +437,7 @@ export const products: Product[] = [
       purity: "Zero Preservatives • Keto & Sugar-Free Formulation"
     }
   },
+  //
   {
     id: 'premium-anjeer',
     slug: 'premium-kashmiri-anjeer-sun-dried',
@@ -484,7 +487,7 @@ export const products: Product[] = [
     details: ['250g crystal jar', 'Intact ruby skins', 'Rich in natural melatonin'],
     price: 1250,
     rating: 4.8,
-    images: ['/images/everace-1.jpeg', '/images/everace-5.jpeg'],
+    images: ['/images/everace-1.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfh5wEMI4221VOOWE9loQEDDfMPUSdq8N9jZAMnRCM2w&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYajHBf_8yFdPmlfD-dW9vIqTOgbg4WtklJqZrj22Pqg&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-F2Nh0xYc4NQAKJ12abGffIuJhTrr0xdCcn5dAUWUyw&s=10'],
     variants: [{ id: 'cherry-250g', label: '250g', price: 1250, inventory: 29 }],
     story: 'Grown in the historical cherry belts of Shopian, these fruits undergo delicate hand-pitting and sun-curing to retain their clean, authentic flavor profile.',
     taste: 'Bright deep tartness balanced perfectly with concentrated natural fruit sweetness.',
@@ -522,7 +525,7 @@ export const products: Product[] = [
     details: ['500g heavy jar', 'High enzymatic value', 'Thick medicinal consistency'],
     price: 1950,
     rating: 4.9,
-    images: ['/images/everace-12.jpeg', '/images/everace-14.jpeg'],
+    images: ['/images/everace-12.jpeg', '/https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZvUo92SSTZCAsvO3OcGV7c0O7DNZ97crE3XL35VViPA&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBLheuSJnGBvLCcF2JFqN-4R651mHGwtoiQ2d_gGo4A&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-3BU1EdKBzCrnEbBU1W8c5pzwkf9XUEr8hLUa0Etmyg&s=10'],
     variants: [{ id: 'honey-500g', label: '500g', price: 1950, inventory: 24 }],
     story: 'Revered globally for its potent therapeutic properties, our raw Sidr honey is hand-harvested twice a year by artisans tracking mountain migratory bees.',
     taste: 'Rich, peppery caramel depth with a complex herbal finish.',
@@ -560,7 +563,7 @@ export const products: Product[] = [
     details: ['300g presentation jar', 'Curated aesthetic pairing', 'Tart flavor profile'],
     price: 1750,
     rating: 4.8,
-    images: ['/images/everace-15.jpeg', '/images/everace-2.jpeg'],
+    images: ['/images/everace-2.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Gju0TPGIDacLOo5D8QBNIet7Td4w_Ma0YgOojzRTZA&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSukXPczBrvIDzB9sCz80bJPWQI-f_PdKj35ol5mBYWUA&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUrInNOT0Qq4AREsEjMQBDoNJCLqhStlwBgXNUR-jbPg&s'],
     variants: [{ id: 'plum-blue-300g', label: '300g', price: 1750, inventory: 15 }],
     story: 'This curated pairing is built around balancing contrasting flavors: premium tart wild blueberries highlight the rich, honeyed chewiness of single-estate dried plums.',
     taste: 'Complex jammy bite opening into sharp sub-alpine berry notes.',
@@ -598,7 +601,7 @@ export const products: Product[] = [
     details: ['200g crystal jar', 'Micro-kernel intensely concentrated', 'Zero chemical additives'],
     price: 1550,
     rating: 4.9,
-    images: ['/images/everace-13.jpeg', '/images/everace-16.jpeg'],
+    images: ['/images/everace-5.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVq0t8-QIFOqbnBzvBVVhdgPcDwiZJsGT4wsw-3AV8ZQ&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn2wrYHSOC0KIQImmsBcwTSeZig5s6MHK2r2_fsTwc9g&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0WC1_A1EZMULp3zopPjKRJW49lxdF-mjCpfR5468R8Q&s'],
     variants: [{ id: 'blueberry-200g', label: '200g', price: 1550, inventory: 12 }],
     story: 'These rare wild blueberries are much smaller than commercial varieties, packing their deep flavor and rich skin nutrients into a tiny, intense berry profile.',
     taste: 'Crisp skin pop, concentrated zesty tartness, deep woody finish.',
@@ -626,6 +629,7 @@ export const products: Product[] = [
       purity: "Wild Strain Non-Cultivated • Absolute Zero Cane Sugar Added"
     }
   },
+  //
   {
     id: 'walnut-oil',
     title: 'Cold-Pressed Walnut Elixir',
@@ -664,6 +668,9 @@ export const products: Product[] = [
       purity: "Raw First Press • Extra Virgin Grade"
     }
   },
+
+
+  //
   {
     id: 'almond-oil',
     title: 'Cold-Pressed Mamra Almond Elixir',
@@ -713,7 +720,7 @@ export const products: Product[] = [
     details: ['50ml bottle', 'Cold-pressed', 'Luxury skincare oil'],
     price: 1499,
     rating: 4.7,
-    images: ['/images/everace-13.jpeg', '/images/everace-14.jpeg', '/images/everace-12.jpeg'],
+    images: ['/images/everace-13.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXFK9Il7HBncqTMX8w9b1aPs88gQmLbQgtBiQrmwhgBQ&s=10', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6tVkwtQ71tPNF_tGRuhvStH8_PjUvXpf5v-nkgx6-8A&s','https://images.unsplash.com/photo-1754231536571-f68d10886777?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGFwcmljb3QlMjBvaWx8ZW58MHx8MHx8fDA%3D'],
     variants: [{ id: 'oil-50ml', label: '50ml', price: 1499, inventory: 18 }],
     story: 'A refined oil distilled from the finest apricots, designed to bring premium Indian wellness into everyday rituals.',
     taste: 'Soft, nutty, with a natural golden warmth.',
@@ -751,7 +758,7 @@ export const products: Product[] = [
     details: ['50g jar', 'Pure resin', 'Ancient botanical ritual'],
     price: 1899,
     rating: 4.8,
-    images: ['/images/everace-11.jpeg', '/images/everace-17.jpeg', '/images/everace-18.jpeg'],
+    images: ['/images/everace-11.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJmxOCwEztofOq5D1J35R0fsSj5iAhLeKnyZrNHo6IKA&s=10', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY41mRBU_Lbmw44XiG8L22Qj2SRIDN1nSpDsJcKqm3HA&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht-IJPJKPeoLQFH_OZIFJ3Ayq1FQ9LK1p3w_ICGICHA&s=10'],
     variants: [{ id: 'shilajit-50g', label: '50g', price: 1899, inventory: 12 }],
     story: 'A timeless wellness offering, carefully refined for modern luxury routines and subtle energy support.',
     taste: 'Earthy, rich, with warm mineral notes.',
@@ -792,7 +799,7 @@ export const products: Product[] = [
     price: 1950,
     rating: 4.7,
     badge: 'Exquisite',
-    images: ['/images/everace-9.jpeg', '/images/everace-16.jpeg'],
+    images: ['/images/everace-7.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0R4l6rgmiks8DuL58EuAGT7ut1cHY6FPRre6VmD_arQ&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-keLEUbi6ZT4OdMI9_oWGupHAL1nBy_2UFHmMbfy8uQ&s=10','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0urjZ2OThjBKl-Wpay54TifK4vCXT0A4ph6yvj1GO4w&s=10'],
     variants: [{ id: 'pista-200g', label: '200g', price: 1950, inventory: 15 }],
     story: 'Sourced from rocky high-altitude borders, these pistachios are smaller than commercial variants but contain double the concentration of essential monounsaturated fats.',
     taste: 'Intensely savory, rich pine-like clarity, clean salty crunch.',
