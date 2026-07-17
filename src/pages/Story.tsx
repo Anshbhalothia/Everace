@@ -137,7 +137,7 @@ export default function StoryPage() {
             className="rounded-[40px] border border-[#e4d2bd] bg-[#fffdfa] p-4 shadow-panel overflow-hidden"
           >
             <div className="overflow-hidden rounded-[32px] aspect-[16/10] bg-[#f7f1e8]">
-              <LedgerImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDjTCeHuG94nTq8zN2S_sn4E_hLwVi4hBOOnhY-W7H1Q&s=10" alt="Pampore Saffron Terroir" />
+              <LedgerImage src="/images/mountains2.jpg" alt="Pampore Saffron Terroir" />
             </div>
           </motion.div>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="max-w-xl space-y-6">

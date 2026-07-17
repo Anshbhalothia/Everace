@@ -14,7 +14,7 @@ export function Footer() {
           <CheckoutAction textOnly>
             Checkout
           </CheckoutAction>
-          <Link to="#story">Brand Story</Link>
+          <Link to="/story">Brand Story</Link>
         </div>
       </div>
     </footer>
